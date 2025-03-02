@@ -34,7 +34,7 @@ function App() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setResult(`Name: ${name}, Age: ${age}`);
+    setResult((prevResult) => `${prevResult} Name: ${name}, Age: ${age}\n`);
   };
 
   const handleFormReset = () => {
@@ -47,60 +47,60 @@ function App() {
     <div style={{ textAlign: "center", margin: "20px" }}>
       <h1>Counter: {count}</h1>
       <button
-      onClick={increment}
-      disabled={count >= 10}
-      style={{
-        padding: "10px 20px",
-        margin: "5px",
-        backgroundColor: count >= 10 ? "grey" : "#4CAF50",
-        color: "black",
-        border: "none",
-        borderRadius: "5px",
-        cursor: count >= 10 ? "not-allowed" : "pointer",
-      }}
+        onClick={increment}
+        disabled={count >= 10}
+        style={{
+          padding: "10px 20px",
+          margin: "5px",
+          backgroundColor: count >= 10 ? "grey" : "#4CAF50",
+          color: "black",
+          border: "none",
+          borderRadius: "5px",
+          cursor: count >= 10 ? "not-allowed" : "pointer",
+        }}
       >
-      +
+        +
       </button>
       <button
-      onClick={decrement}
-      disabled={count <= 0}
-      style={{
-        padding: "10px 20px",
-        margin: "5px",
-        backgroundColor: count <= 0 ? "grey" : "#f44336",
-        color: "black",
-        border: "none",
-        borderRadius: "5px",
-        cursor: count <= 0 ? "not-allowed" : "pointer",
-      }}
+        onClick={decrement}
+        disabled={count <= 0}
+        style={{
+          padding: "10px 20px",
+          margin: "5px",
+          backgroundColor: count <= 0 ? "grey" : "#f44336",
+          color: "black",
+          border: "none",
+          borderRadius: "5px",
+          cursor: count <= 0 ? "not-allowed" : "pointer",
+        }}
       >
-      -
+        -
       </button>
       <button
-      onClick={reset}
-      disabled={count === 0}
-      style={{
-        padding: "10px 20px",
-        margin: "5px",
-        backgroundColor: count === 0 ? "grey" : "pink",
-        color: "black",
-        border: "none",
-        borderRadius: "5px",
-        cursor: count === 0 ? "not-allowed" : "pointer",
-      }}
+        onClick={reset}
+        disabled={count === 0}
+        style={{
+          padding: "10px 20px",
+          margin: "5px",
+          backgroundColor: count === 0 ? "grey" : "pink",
+          color: "black",
+          border: "none",
+          borderRadius: "5px",
+          cursor: count === 0 ? "not-allowed" : "pointer",
+        }}
       >
-      0
+        0
       </button>
       <div
-      style={{
-        backgroundColor: getBackgroundColor(),
-        padding: "10px",
-        marginTop: "10px",
-        borderRadius: "5px",
-        color: "black",
-      }}
+        style={{
+          backgroundColor: getBackgroundColor(),
+          padding: "10px",
+          marginTop: "10px",
+          borderRadius: "5px",
+          color: "black",
+        }}
       >
-      {count === 10 && <p>Counter reached the maximum value</p>}
+        {count === 10 && <p>Counter reached the maximum value</p>}
       </div>
       <form onSubmit={handleSubmit}>
         <div>
@@ -134,6 +134,7 @@ function App() {
             border: "1px solid black",
             padding: "10px",
             marginTop: "10px",
+            whiteSpace: "pre-wrap",
           }}
         >
           {result}
