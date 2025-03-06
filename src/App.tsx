@@ -1,11 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(() => {
+    const savedCount = localStorage.getItem("count");
+    return savedCount ? parseInt(savedCount, 10) : 0;
+  });
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState(() => {
+    return localStorage.getItem("result") || "";
+  });
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [squareColor, setSquareColor] = useState("blue");
+
+  useEffect(() => {
+    if (count == 5) {
+      alert("Counter is equal 5");
+    }
+
+    if (count === 0 || count === 5 || count === 10) {
+      localStorage.setItem("count", count.toString());
+    }
+  }, [count]);
+
+  useEffect(() => {
+    localStorage.setItem("result", result);
+  }, [result]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const colorInterval = setInterval(() => {
+      setSquareColor(`#${Math.floor(Math.random() * 16777215).toString(16)}`);
+    }, 100); // Change interval to 100 milliseconds
+
+    return () => clearInterval(colorInterval);
+  }, []);
 
   const increment = () => {
     if (count < 10) {
@@ -140,6 +177,20 @@ function App() {
           {result}
         </div>
       )}
+      <div style={{ marginTop: "20px" }}>
+        <h2>
+          Current Time: {currentTime.getHours()}:{currentTime.getMinutes()}:
+          {currentTime.getSeconds()}
+        </h2>
+      </div>
+      <div
+        style={{
+          width: "100px",
+          height: "100px",
+          backgroundColor: squareColor,
+          margin: "20px auto",
+        }}
+      ></div>
     </div>
   );
 }
